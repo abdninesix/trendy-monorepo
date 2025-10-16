@@ -3,3 +3,4 @@ In this tech we contain multiple applications in a single repo.
 For this purpose we will be using TurboRepo.
 Using this we can optimize the deployment of our multiple applications.
 Each time there's a new change in our project, the deployment will only rebuild the change instead of all the applications in the MonoRepo.
+We are building our previous frontend and applications (Trendy Store and Trendy Dashboard).
