@@ -1,2 +1,3 @@
 Today I will be trying a new tech. MonoRepo.
 In this tech we contain multiple applications in a single repo.
+For this purpose we will be using TurboRepo.
