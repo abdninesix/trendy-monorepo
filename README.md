@@ -1,105 +1,135 @@
-Here’s a README file based on the details you've provided:
+# Turborepo starter
 
----
+This Turborepo starter is maintained by the Turborepo core team.
 
-# MonoRepo with TurboRepo
+## Using this example
 
-## Introduction
+Run the following command:
 
-Today, we are exploring a new tech approach called **MonoRepo**. In this architecture, multiple applications are managed within a single repository. The goal of this setup is to streamline our project, improve deployment efficiency, and simplify the management of various services.
-
-For this purpose, we are using **TurboRepo**, which optimizes the deployment of multiple applications in a MonoRepo by rebuilding only the applications that have changes instead of rebuilding the entire repository each time.
-
-In this project, we will be focusing on two main applications:
-
-* **Trendy Store** (Frontend Application)
-* **Trendy Dashboard** (Admin Dashboard Application)
-
-Both of these applications will be designed to use **Microservices**, with each service working independently, making the system modular and scalable.
-
-## Goals
-
-* Implement a MonoRepo setup using TurboRepo.
-* Optimize deployment workflows by ensuring that only changed applications are rebuilt.
-* Maintain modularity through microservices for both the frontend and backend applications.
-* Improve project structure and collaboration between teams.
-
-## Benefits
-
-* **Faster Deployments**: With TurboRepo, we only rebuild the application or service that has changed, making deployments faster and more efficient.
-* **Simplified Project Management**: Having all applications in a single repository reduces the complexity of managing multiple repositories.
-* **Independent Microservices**: Each service operates independently, allowing for better scalability, maintenance, and testing.
-* **Better Collaboration**: Teams can work on different parts of the system without interfering with each other’s work.
-
-## Setup Instructions
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
-
-2. **Install Dependencies**
-   TurboRepo manages the entire monorepo, so ensure you have all dependencies installed.
-
-   ```bash
-   npm install
-   ```
-
-3. **Run Applications**
-
-   * Start both **Trendy Store** and **Trendy Dashboard**:
-
-     ```bash
-     turbo dev
-     ```
-
-4. **Microservices Configuration**
-   Each application will interact with its respective microservices. Ensure each service is independently deployable and testable.
-
-## Folder Structure
-
-```bash
-├── apps/
-│   ├── trendy-store/          # Frontend application
-│   └── trendy-dashboard/      # Admin dashboard application
-├── packages/
-│   ├── service-a/             # Microservice A (e.g., Auth)
-│   └── service-b/             # Microservice B (e.g., Product Management)
-└── turbo.json                 # TurboRepo configuration file
+```sh
+npx create-turbo@latest
 ```
 
-## Key Concepts
+## What's inside?
 
-### TurboRepo
+This Turborepo includes the following packages/apps:
 
-TurboRepo is a high-performance build system for JavaScript and TypeScript monorepos. It helps optimize workflows by intelligently determining which parts of the repository need rebuilding or redeploying based on changes made.
+### Apps and Packages
 
-### Microservices Architecture
+- `docs`: a [Next.js](https://nextjs.org/) app
+- `web`: another [Next.js](https://nextjs.org/) app
+- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
+- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-In this project, each application and its associated backend services are independent. This allows teams to work on services without worrying about the overall application. Services can be scaled independently based on demand.
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-## Deployment
+### Utilities
 
-With the use of TurboRepo, only the changed parts of the repository will be rebuilt and deployed. This makes the deployment process significantly more efficient, especially as the project grows and more services are added.
+This Turborepo has some additional tools already setup for you:
 
-### Deployment Steps:
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
 
-1. Push your changes to the main branch.
-2. TurboRepo will detect the changes and only rebuild the affected applications.
-3. The deployment process is optimized to rebuild only the necessary components, minimizing downtime and improving efficiency.
+### Build
 
-## Technologies Used
+To build all apps and packages, run the following command:
 
-* **MonoRepo** architecture
-* **TurboRepo** for optimized build and deployment
-* **Microservices** for independent application services
-* **Node.js** and **React** for the frontend applications
-* **Express.js** for the backend microservices (if applicable)
+```
+cd my-turborepo
 
-## Future Considerations
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo build
 
-* Add additional microservices as the application grows.
-* Explore caching strategies to further optimize rebuild times.
-* Implement continuous integration (CI) and continuous deployment (CD) pipelines to automate the deployment process.
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo build
+yarn dlx turbo build
+pnpm exec turbo build
+```
+
+You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+
+```
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo build --filter=docs
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo build --filter=docs
+yarn exec turbo build --filter=docs
+pnpm exec turbo build --filter=docs
+```
+
+### Develop
+
+To develop all apps and packages, run the following command:
+
+```
+cd my-turborepo
+
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo dev
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo dev
+yarn exec turbo dev
+pnpm exec turbo dev
+```
+
+You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+
+```
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo dev --filter=web
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo dev --filter=web
+yarn exec turbo dev --filter=web
+pnpm exec turbo dev --filter=web
+```
+
+### Remote Caching
+
+> [!TIP]
+> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+
+Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+
+```
+cd my-turborepo
+
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo login
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo login
+yarn exec turbo login
+pnpm exec turbo login
+```
+
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+
+```
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo link
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo link
+yarn exec turbo link
+pnpm exec turbo link
+```
+
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
+- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
+- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
+- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
+- [Configuration Options](https://turborepo.com/docs/reference/configuration)
+- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
